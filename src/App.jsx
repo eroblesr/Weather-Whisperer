@@ -36,7 +36,7 @@ function App() {
     <div className="left-info">
       <p className="city">{weather.city}, {weather.country}</p>
       <p className="temperature">
-        {weather.temp}
+        {Math.round(weather.temp)}
         <span className="unit">°F</span>
       </p>
     </div>
