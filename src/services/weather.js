@@ -20,7 +20,8 @@ export async function getWeatherByCity(city){
         icon: data.weather[0].icon,
         wind: data.wind.speed,
         country: data.sys.country,
-        city: data.name
+        city: data.name,
+        main: data.weather[0].main
      }
 
    }catch(err){
