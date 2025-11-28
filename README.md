@@ -34,3 +34,13 @@ Weather-Whisperer is a **React** application that displays real-time weather inf
 --App.css
 --App.jsx
 --main.jsx
+
+## ⚙️ Run Locally
+
+Clone the project:
+
+```bash
+git clone https://github.com/your-username/Weather-Whisperer.git
+cd Weather-Whisperer
+npm install
+npm run dev
