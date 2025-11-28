@@ -23,11 +23,60 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding-top: 6rem;
+    padding-top: 10rem;
     padding-bottom: 2rem;
     transition: background-color 0.8s ease-in-out;
     position: relative;
     z-index: 5;
+  }
+  /*search bar*/
+  .search-bar{
+    width: 80%;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 1.5rem;
+    max-width: 500px;
+    margin: 0 auto;        
+    margin-bottom: 2rem;   
+    padding: 1rem 1.2rem;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+  }
+  .search-bar input {
+    width: 70%;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    border: none;
+    font-size: 1rem;
+    outline: none;
+    background: rgba(255, 255, 255, 0.6);
+    font-family: 'Quicksand', sans-serif;
+
+  }
+
+  .search-bar button {
+    padding: 0.8rem 1.4rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.8);
+    font-weight: bold;
+    transition: 0.3s ease;
+    font-family: 'Quicksand', sans-serif;
+  }
+
+  .input-city button:hover {
+    background: white;
+    transform: scale(1.05);
   }
   .weather-container{
     background: rgba(255, 255, 255, 0.25);
@@ -82,17 +131,7 @@
     padding: 0;
     margin: 0 ;
   }
-  /*Hour*/
-  .day{
-    background-color: #6EBCED;
-  }
-  .afternoon{
-    background-color: orange;
-  }
-
-  .night{
-    background-color: black;
-  }
+  
   /*Weather */
 
   .rainy {
@@ -266,4 +305,17 @@
 
   .default {
     background-color: #999;
+  }
+  
+
+/*Hour*/
+  .day{
+    background-color: #6EBCED;
+  }
+  .afternoon{
+    background-color: orange;
+  }
+
+  .night{
+    background-color: #041743;
   }

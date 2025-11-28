@@ -21,7 +21,9 @@ export async function getWeatherByCity(city){
         wind: data.wind.speed,
         country: data.sys.country,
         city: data.name,
-        main: data.weather[0].main
+        main: data.weather[0].main,
+        timezone: data.timezone
+
      }
 
    }catch(err){

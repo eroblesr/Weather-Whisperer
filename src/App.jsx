@@ -8,28 +8,35 @@ function App() {
   const [error,setError]= useState(null);
   const [bgClass, setBgClass] = useState("day");
   const [weatherClass, setWeatherClass] = useState("");
+  const [city, setCity] = useState("");
+  function getLocalHour(timezoneOffset) {
+  const nowUTC = new Date().getTime() + new Date().getTimezoneOffset() * 60000;
+  const cityTime = new Date(nowUTC + timezoneOffset * 1000);
+  return cityTime.getHours();
+}
+
   useEffect(()=>{
-    getWeatherByCity("Suiza")
+    getWeatherByCity("Guadalajara")
     .then(setWeather)
     .catch((err)=>{
       console.error("Couldn't obtain the weather:",err);
       setError(err.message);
-    })
-  },[]);
-  useEffect(()=>{
-    const hour = new Date().getHours();
-    if(hour>= 6 && hour < 18){
-      setBgClass("day");
-    }else if(hour>=18 && hour <=20){
-      setBgClass("afternoon");
-    }else{
-      setBgClass("night");
-    }
+});
   },[]);
   useEffect(()=>{
     if(!weather) return;  
+    const hour = getLocalHour(weather.timezone);
+     if (hour >= 6 && hour < 18) {
+    setBgClass("day");
+    } else if (hour >= 18 && hour <= 20) {
+    setBgClass("afternoon");
+    } else {
+    setBgClass("night");
+    }
     console.log("MAIN:", weather.main, "DESCRIPTION:", weather.desc, "icon", weather.icon);
-    if(weather.main === "Rain" || weather.main ==="Drizzle") setWeatherClass("rainy");
+    if(weather.main === "Rain" || weather.main ==="Drizzle"||
+      weather.main === "Thunderstorm"
+    ) setWeatherClass("rainy");
     
     else if(
       weather.main ==="Clouds" || 
@@ -44,10 +51,37 @@ function App() {
   },[weather]);
   
   if(error) return <p style={{color:"red"}}>⚠️ {error}</p>
-  if(!weather) return <p>Loading ...</p>
+  if (!weather && !error) return <p>Loading...</p>;
+
+  const handleSearch = () => {
+  if (!city.trim()) {
+    setError("Please enter a city");
+    return;
+  }
+
+  setError(null);
+
+  getWeatherByCity(city)
+    .then((data) => {
+      setWeather(data);
+      setCity(""); })
+    .catch(() => {
+      setError("City not found");
+      setCity("");
+    });
+};
+
 
   return (
+    
     <div className={`app-container ${bgClass} ${weatherClass}`}>
+      <div className='search-bar'>
+        <input 
+         type="text"
+         placeholder='Search city...' 
+         value={city}
+         onChange={(e)=> setCity(e.target.value)} />
+         <button onClick={handleSearch}>Search</button></div>
       {weatherClass === "rainy" && (
       <div className="rain">
         {Array.from({ length: 80 }).map((_, i) => (
@@ -86,8 +120,8 @@ function App() {
         ))}
       </div>
   )}
-      <div className="weather-container">
-
+  <div className="weather-container">
+ 
   <div className="top-section">
     <div className="left-info">
       <p className="city">{weather.city}, {weather.country}</p>
